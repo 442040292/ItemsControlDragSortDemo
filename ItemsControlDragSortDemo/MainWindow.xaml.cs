@@ -70,28 +70,4 @@ namespace ItemsControlDragSortDemo
             ViewModel.ChangeIetmIndex(dc, 1);
         }
     }
-
-    public class DragMouseoverDp : DependencyObject
-    {
-
-
-
-        public static bool GetIsDragMouseMove(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsDragMouseMoveProperty);
-        }
-
-        public static void SetIsDragMouseMove(DependencyObject obj, bool value)
-        {
-            obj.SetValue(IsDragMouseMoveProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for IsDragMouseMove.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsDragMouseMoveProperty =
-            DependencyProperty.RegisterAttached("IsDragMouseMove", typeof(bool), typeof(DragMouseoverDp), new PropertyMetadata(false));
-
-
-
-    }
-
 }
