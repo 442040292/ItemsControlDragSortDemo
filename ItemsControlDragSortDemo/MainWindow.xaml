@@ -1,0 +1,67 @@
+﻿<Window x:Class="ItemsControlDragSortDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ItemsControlDragSortDemo"
+        xmlns:vm="clr-namespace:ItemsControlDragSortDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainWindowViewModel  x:Name="MainWindowViewModel"/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="GridMouseOverHighLightStyle" TargetType="{x:Type local:DragGrid}">
+            <Setter Property="Background" Value="#01FFFFFF" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#441AAA5E" />
+                </Trigger>
+                <Trigger Property="IsDragMouseOver" Value="True">
+                    <Setter Property="Background" Value="#441AAA5E" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GridMouseOverHighLightStyle2" TargetType="{x:Type local:DragGrid}">
+            <Setter Property="Background" Value="#01FFFFFF" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#440000FF" />
+                </Trigger>
+                <Trigger Property="IsDragMouseOver" Value="True">
+                    <Setter Property="Background" Value="#440000FF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <ItemsControl x:Name="LBoxSort"
+                      ItemsSource="{Binding YouItemSource}"
+                      AllowDrop="True"
+                      PreviewMouseMove="LBoxSort_OnPreviewMouseMove" 
+                      >
+            <!--Drop="LBoxSort_OnDrop"-->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="Red" Width="60" Height="30" Margin="10" >
+                        <TextBlock Text="{Binding Name}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <local:DragGrid Style="{StaticResource GridMouseOverHighLightStyle}"  Drop="LBoxSort_Drop_Prev" MouseLeftButtonDown="LBoxSort_Move_Prev" />
+                            <local:DragGrid Style="{StaticResource GridMouseOverHighLightStyle2}" Drop="LBoxSort_Drop_Next" MouseLeftButtonDown="LBoxSort_Move_Next" Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</Window>
